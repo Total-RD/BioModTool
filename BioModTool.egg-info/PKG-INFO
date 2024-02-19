@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: BioModTool
+Version: 1.0.0
+Summary: Package to generate biomass objective functions to update genome-scale metabolic models.
+Home-page: 
+License: LGPL
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: cobra
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: openpyxl
