@@ -65,9 +65,16 @@ def test_load_Model(model_file,variable_formula,variable_charge,window):
 
 def get_user_compartment(cobra_model,bool_calculate_formula,bool_calculate_charge,user_compartment,window_2):
     
-    # Get user compartment
-    key_list = [k  for (k, val) in cobra_model.compartments.items() if val == user_compartment.get()]
-    my_comp = key_list[0]
+    # Get user compartment id
+    # selected user_compartment has the syntax : "id : name" with name which can be ""
+    
+    selectedCompartment = user_compartment.get()
+    
+    # setting the maxsplit parameter to 1, will return a list with 2 elements!
+    maxsplitParameter=1
+    my_comp, junk_text = selectedCompartment.split(" : ",maxsplitParameter)
+    
+    
     window_2.destroy()
     interface_step3(cobra_model,bool_calculate_formula,bool_calculate_charge,my_comp)
 
@@ -178,7 +185,7 @@ def interface_step1():
     lf_Model_properties.grid(row=i_row,column=0,padx=10,pady=5)
     i_row +=1
 
-    lf_warning_formula = Label(lf_Model_properties, text= "\n /!\ Note that if you select formula = False, the molecular weight cannot be calculated from the metabolite formula preventing unit conversion.")
+    lf_warning_formula = Label(lf_Model_properties, text= "\n Warning: Note that if you select formula = False, the molecular weight cannot be calculated from the metabolite formula preventing unit conversion.")
     lf_warning_formula.config(fg="red")
     lf_warning_formula.grid(row=i_row,column=0,padx=3,stick="w",columnspan=4)
     i_row +=1
@@ -242,17 +249,26 @@ def interface_step2(cobra_model,bool_calculate_formula,bool_calculate_charge):
 
     # window_2 Label / subtitle (Step 1/5)
     subtitle_label = Label(window_2, text="STEP 2/5: Define the compartment in which the biomass reaction will be added",anchor=CENTER)
+    
     subtitle_label.grid(row=i_row,column=0,padx=15)
     i_row +=1
 
 
     user_compartment = StringVar()
-    listeCombo = ttk.Combobox(window_2, textvariable=user_compartment, values=list(cobra_model.compartments.values()))
+    #Modification 2/4/24
+    #Some Models give only id for the compartment, without a name
+    #So, here the listeCombo will display, for each compartment, the compartment id concatenated to the compartment name if it exists
+    compartment_list = [(comp_id + " : " + comp_name)  for (comp_id, comp_name) in cobra_model.compartments.items()]
+    
+    #Width is larger than previously to correctly display a larger text in the combo_list
+    listeCombo = ttk.Combobox(window_2, textvariable=user_compartment, values=compartment_list,width=35)
 
     # Choose the default item to be displayed
     listeCombo.current(0)
 
     listeCombo.grid(row=i_row,column=0,pady=5)
+ 
+   
     i_row+=1
 
     button_next_to_step2 = Button(window_2, text="Next Step",bg="darkgrey",command=partial(get_user_compartment,cobra_model,bool_calculate_formula,bool_calculate_charge,user_compartment,window_2))
