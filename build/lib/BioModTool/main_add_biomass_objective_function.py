@@ -51,7 +51,7 @@ def add_biomass_objective_function(cobra_model, path_to_data, suffix, dict_struc
         - path_to_data: data must be given in an Excel file with a specific format. See data_template.xlsx
         - suffix: string matching "^[a-zA-Z0-9_]*$" (containing only alphanumeric characters or _). 
                   All added pseudo-reactions and reactions and pseudo-metabolites will contain the following tag: _suffix_compartment.
-        - dict_structure: (dictionary) key = pool_id (expl DNA, DAG, BIOMASS etc) /!\ must be the same as Excel sheets. For each pool_id=sheet_id one reaction and one pseudo metabolite will be added.
+        - dict_structure: (dictionary) key = pool_id (expl DNA, DAG, BIOMASS etc). Warning: must be the same as Excel sheets. For each pool_id=sheet_id one reaction and one pseudo metabolite will be added.
                                      value = level of the reaction: 'level 3' (for DAG,TAG etc), 'level_2' (for DNA, PROTEINS etc), 'level_1' (for BIOMASS)
 
         - user_compartment (optional, default value = "c") : cobra model's compartment where biomass reactions and pseudo metabolites will be added.
@@ -167,7 +167,7 @@ def add_biomass_objective_function(cobra_model, path_to_data, suffix, dict_struc
             dictsave_df_calculs[pool_id] = pd.DataFrame.from_dict(dictdict_pool_data,orient="index")
 
     # PART 2__________ for level reactions (BIOMASS reaction)
-    # /!\ Constant coeff unit in mmol/gDCW  
+    # Warning: Constant coeff unit in mmol/gDCW  
     dictdict_biomass_constant_metabolites = dictdictdict_constant_metabolites_data[biomass_id]
     # Checked that the metabolite is in cobra_model_copy
         

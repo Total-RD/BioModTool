@@ -144,7 +144,7 @@ def test_continue_add_reaction(level_n,level_np1,dictdict_data_level_n,dictdict_
     if (not all_zero_or_empty) and (not coeff_nul_empty_in_level_np1):
         test_continue = True
     elif (not all_zero_or_empty) and coeff_nul_empty_in_level_np1:
-        message = "/!\ Reaction %s added to model but metabolite %s not consummed in Biomass reaction." %(level_n,level_n)
+        message = "Warning: Reaction %s added to model but metabolite %s not consummed in Biomass reaction." %(level_n,level_n)
         print(message)
         warnings.warn(message)
         test_continue = True
