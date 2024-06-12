@@ -235,7 +235,7 @@ def calculate_stochoimetric_coefficient_mmolpergDCW(dictdict_biomass_data,calcul
 def calculate_pool_charge(dict_rxn):
     """
 	Calculates the charge of the new pseudo metabolite (pool).
-	/!\ Requires that all metabolites consumed have a charge in model.
+        Warning: Requires that all metabolites consumed have a charge in model.
     Parameter: dict_rxn (dictionary : cobra_model.reactions.metabolites format, keys = cobra metabolite, value = its stoichiometric coefficient)
     Returns the calculated charge.
     """
@@ -256,7 +256,7 @@ def calculate_pool_charge(dict_rxn):
 def calculate_pool_formula(dict_rxn):
     """
     Calculates the forumula of the new pseudo metabolite (pool).
-    /!\ Requires that all metabolites consumed have a formula in model.
+    Warning: Requires that all metabolites consumed have a formula in model.
     Parameter: dict_rxn (dictionary : cobra_model.reactions.metabolites format, keys = cobra metabolite, value = its stoichiometric coefficient)
     Returns the calculated formula.
     """

@@ -45,7 +45,7 @@ def create_reaction_dict(dictdict_pool_data, dictdict_constant_metabolites):
 
 def create_metabolite(cobra_model, met_id, name, compartment, formula=False, charge=False): 
     """
-    Create a Cobra metabolite. /!\ Metabolite still needs to be added to the model.
+    Create a Cobra metabolite. Warning: Metabolite still needs to be added to the model.
     """
     met = cobra.Metabolite()
     if compartment not in cobra_model.compartments.keys():
@@ -90,7 +90,7 @@ def create_pool_metabolite(cobra_model,dict_pool,pool_suffix_id,user_compartment
 
 def create_reaction(cobra_model, rxn_id, name, metabolites, subsystem='', lower_bound=-1000., upper_bound=1000.,gene_reaction_rule =""):
     """
-    Create a Cobra reaction. /!\ Reaction still needs to be added to the model.
+    Create a Cobra reaction. Warning: Reaction still needs to be added to the model.
     """
     rxn = cobra.Reaction()
     rxn.id = str(rxn_id)  # create_reaction_id(cobra_model, name)
